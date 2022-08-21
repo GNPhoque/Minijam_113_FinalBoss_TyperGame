@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterManager : MonoBehaviour
 {
-    public static List<Monster> firstLineMonsters = new List<Monster>();
+    public static List<Monster> firstLineMonsters;
 
     public static void AddMonster(Monster m)
     {
@@ -26,16 +26,24 @@ public class MonsterManager : MonoBehaviour
 
     public static void ResetAllMonsters(Monster m)
     {
-        if (m.state == MonsterState.LOCK)
+        if (m.state == MonsterState.LOCK || m.state == MonsterState.COMBO)
         {
             foreach (Monster monster in MonsterManager.firstLineMonsters)
             {
-                monster.isLocked = false;
+                if (monster.state != MonsterState.COMBO)
+                {
+                    monster.isLocked = false;
+                }
             }
         }
     }
 
-    private void OnEnable()
+	private void Start()
+	{
+        firstLineMonsters = new List<Monster>();
+    }
+
+	private void OnEnable()
     {
         InputManager.TypingLetter += InputManager_TypingLetter;
     }
@@ -53,23 +61,26 @@ public class MonsterManager : MonoBehaviour
 
         foreach (Monster m in firstLineMonsters)
         {
-            if (m.actualChar < m.word.Length) 
+            if (!m.isLocked)
             {
-                if (m.word[m.actualChar].ToString().ToUpper() == obj)
+                if (m.actualChar < m.word.Length)
                 {
-                    if (m.state != MonsterState.LOCK)
+                    if (m.word[m.actualChar].ToString().ToUpper() == obj)
                     {
-                        selected.Add(m);
+                        if (m.state != MonsterState.LOCK)
+                        {
+                            selected.Add(m);
+                        }
+                        else
+                        {
+                            m.ConfirmedLetter();
+                            canContinue = false;
+                        }
                     }
                     else
                     {
-                        m.ConfirmedLetter();
-                        canContinue = false;
+                        notSelected.Add(m);
                     }
-                }
-                else
-                {
-                    notSelected.Add(m);
                 }
             }
         }
@@ -82,7 +93,7 @@ public class MonsterManager : MonoBehaviour
                 selected[0].ConfirmedLetter();
                 foreach (Monster m in notSelected)
                 {
-                    m.Reset();
+                    m.ResetMonster();
                 }
             }
             else if (selected.Count > 1)
@@ -93,13 +104,12 @@ public class MonsterManager : MonoBehaviour
                     m.ConfirmedLetter();
                     foreach (Monster mon in notSelected)
                     {
-                        mon.Reset();
+                        mon.ResetMonster();
                     }
                 }
             }
         }
 
     }
-
 
 }

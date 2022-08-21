@@ -5,57 +5,86 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Linq;
+using DG.Tweening;
 
 public class Monster : MonoBehaviour
 {
     [Header("TMP and Dynamic Text")]
-	[SerializeField] TextMeshProUGUI wordText;
+    [SerializeField] GameObject wordElement;
+    [SerializeField] TextMeshProUGUI tmp;
     [SerializeField] DynamicText dynamicText;
+    [SerializeField] CanvasGroup boxBehindText;
+    public string word;
+    public int actualChar;
 
     [Header("Random words")]
     [SerializeField] VariableWordsList acceptingWords;
-	[SerializeField] VariableWordsList refusingWords;
+    [SerializeField] VariableWordsList refusingWords;
+
+    [Header("Settings")]
+    public MonsterState state;
+    public bool isFrontLine;
+    public bool isLocked;
+
+    [Header("Patience")]
+    [SerializeField] private float patienceMin = 1f;
+    [SerializeField] private float patienceMax = 2f;
+    private float patience;
 
     [SerializeField] Collider2D detectionZone;
     [SerializeField] float moveSpeed;
 
-    bool isCurrentWordRefusingWord;
-	public string word;
-    public int actualChar;
-    public bool isLocked;
+    // LOCAL
+    private int tempChar;
+    private bool isCurrentWordRefusingWord;
+    private float patienceTemp;
     bool canMove = true;
-    public bool isFrontLine;
-    public MonsterState state;
-
     ContactFilter2D contactFilter2D;
 
-    private int tempChar;
+    //ANIM DOTWEEN
+    private Sequence animTextPatience;
+    public Tween animFadeText;
 
-	private void Start()
+    private void Start()
     {
         contactFilter2D = new ContactFilter2D();
         contactFilter2D.useTriggers = true;
 
         PickRandomWord();
+        RandomPatience();
     }
 
-	private void Update()
-	{
-		if (canMove)
-		{
+    private void Update()
+    {
+        if (canMove)
+        {
             Vector3 movement = Vector3.right * Time.deltaTime * moveSpeed; ;
             transform.position += movement;
-		}
-	}
+        }
+    }
 
-	private void FixedUpdate()
-	{
+    private void FixedUpdate()
+    {
         List<Collider2D> collided = new List<Collider2D>();
         Physics2D.OverlapCollider(detectionZone, contactFilter2D, collided);
         canMove = !collided.Any(x => x.CompareTag("Monster") || x.CompareTag("EndZone") || (x.CompareTag("WaitingZone") && !isFrontLine));
-	}
+    }
 
-	private void PickRandomWord()
+    private void RandomPatience()
+    {
+        patience = UnityEngine.Random.Range(patienceMin, patienceMax);
+    }
+
+    public void PatienceTextAnim()
+    {
+        animTextPatience = DOTween.Sequence();
+        animTextPatience.Join(boxBehindText.DOFade(0.2f, patience));
+        animTextPatience.Join(wordElement.transform.DOLocalMoveY(20, patience));
+        animTextPatience.OnComplete(() => Living());
+        animFadeText = tmp.DOFade(0.4f, patience);
+    }
+
+    private void PickRandomWord()
     {
         isCurrentWordRefusingWord = UnityEngine.Random.Range(0, 2) == 0;
         if (isCurrentWordRefusingWord)
@@ -63,13 +92,20 @@ public class Monster : MonoBehaviour
             word = refusingWords.PickRandomWord();
         }
         else word = acceptingWords.PickRandomWord();
-        wordText.text = word;
+        tmp.text = word;
     }
 
-	public void ShowWord()
-	{
-		wordText.enabled = true;
-	}
+    private void Living()
+    {
+        // animation grogne
+        //GameManager.instance.LoseMoney();
+        Finish();
+    }
+
+    public void ShowWord()
+    {
+        wordElement.SetActive(true);
+    }
 
     public void ConfirmedLetter()
     {
@@ -93,15 +129,16 @@ public class Monster : MonoBehaviour
 
     public void Finish()
     {
+        animTextPatience.Kill();
         MonsterManager.RemoveMonster(this);
         transform.parent.GetComponent<WaitingLine>().DestroyMonster();
     }
 
-    public void Reset()
+    public void ResetMonster()
     {
-         state = MonsterState.IDLE;
-         isLocked = true;
-         dynamicText.Reset();
+        state = MonsterState.IDLE;
+        isLocked = true;
+        dynamicText.ResetText();
     }
 
     public bool IsCurrentWordRefusingWord() => isCurrentWordRefusingWord;

@@ -29,6 +29,7 @@ public class DynamicText : MonoBehaviour
 
     private IEnumerator AnimChar(int tempChar)
     {
+        monster.animFadeText.Pause();
         s = DOTween.Sequence();
         s.Join(animator.DOColorChar(tempChar, chosenColor, charAnimDuration));
         s.Join(animator.DOPunchCharRotation(tempChar, new Vector3(0, 0, 10), charAnimDuration));
@@ -46,26 +47,21 @@ public class DynamicText : MonoBehaviour
 
     public void LetterConfirmed()
     {
-		try
-		{
-			StartCoroutine(AnimChar(monster.actualChar));
-			monster.actualChar++;
-
-			// Check if end of the word
-			if (monster.actualChar == tmp.text.Length)
-			{
-				if (!monster.IsCurrentWordRefusingWord())
-				{
-					GameManager.instance.LoseMoney();
-				}
-				MonsterManager.ResetAllMonsters(monster);
-			}
-		}
-		catch (Exception e)
-		{
-            Debug.Log(e);
-			throw;
-		}
+        if (monster.actualChar <= tmp.text.Length)
+        {
+            StartCoroutine(AnimChar(monster.actualChar));
+            monster.actualChar++;
+        }
+        
+	    // Check if end of the word
+	    if (monster.actualChar == tmp.text.Length)
+	    {
+	    	if (!monster.IsCurrentWordRefusingWord())
+	    	{
+	    		GameManager.instance.LoseMoney();
+	    	}
+	    	MonsterManager.ResetAllMonsters(monster);
+	    }
     }
 
     public void ChangeColor(MonsterState state)
@@ -84,7 +80,7 @@ public class DynamicText : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void ResetText()
     {
         if (monster.state != MonsterState.IDLE)
         {
