@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - WaitingLine
+  - Monster
+  - MonsterDetectionZone
+  - EndZone
+  - WaitingZone
   layers:
   - Default
   - TransparentFX

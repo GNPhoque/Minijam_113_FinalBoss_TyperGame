@@ -46,14 +46,26 @@ public class DynamicText : MonoBehaviour
 
     public void LetterConfirmed()
     {
-        StartCoroutine(AnimChar(monster.actualChar));
-        monster.actualChar++;
+		try
+		{
+			StartCoroutine(AnimChar(monster.actualChar));
+			monster.actualChar++;
 
-        // Check if end of the word
-        if (monster.actualChar == tmp.text.Length - 1)
-        {
-            MonsterManager.ResetAllMonsters(monster);
-        }
+			// Check if end of the word
+			if (monster.actualChar == tmp.text.Length)
+			{
+				if (!monster.IsCurrentWordRefusingWord())
+				{
+					GameManager.instance.LoseMoney();
+				}
+				MonsterManager.ResetAllMonsters(monster);
+			}
+		}
+		catch (Exception e)
+		{
+            Debug.Log(e);
+			throw;
+		}
     }
 
     public void ChangeColor(MonsterState state)

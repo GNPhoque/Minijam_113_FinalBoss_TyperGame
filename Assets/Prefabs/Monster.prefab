@@ -84,6 +84,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &1379171295355459244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5666648105862408704}
+  - component: {fileID: 6915235173534773481}
+  m_Layer: 0
+  m_Name: DetectionZone
+  m_TagString: MonsterDetectionZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5666648105862408704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379171295355459244}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6787848081515161640}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6915235173534773481
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379171295355459244}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.44097567, y: 0.19598912}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4647987, y: 0.4195706}
+  m_EdgeRadius: 0
 --- !u!1 &2730668241400218362
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +174,7 @@ Transform:
   - {fileID: 3269974091315876597}
   - {fileID: 8458453544307109557}
   m_Father: {fileID: 214637698273531741}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &183357088985736948
 SpriteRenderer:
@@ -201,7 +259,7 @@ Transform:
   - {fileID: 1709068487758177437}
   - {fileID: 4235994819762576322}
   m_Father: {fileID: 6787848081515161640}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2987255536979559400
 GameObject:
@@ -357,7 +415,6 @@ MonoBehaviour:
   tempColor: {r: 0.8396226, g: 0.17030083, b: 0.3685053, a: 1}
   comboColor: {r: 0.6845155, g: 0.10123708, b: 0.8584906, a: 1}
   charAnimDuration: 0.3
-  actualChar: 0
 --- !u!1 &4471100555350924732
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,9 +510,10 @@ GameObject:
   - component: {fileID: 6787848081515161640}
   - component: {fileID: 3392873838767399600}
   - component: {fileID: 6835179444825039794}
+  - component: {fileID: 8586112813545807639}
   m_Layer: 0
   m_Name: Monster
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -474,6 +532,7 @@ Transform:
   m_Children:
   - {fileID: 6403357547635988719}
   - {fileID: 214637698273531741}
+  - {fileID: 5666648105862408704}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -533,9 +592,39 @@ MonoBehaviour:
   dynamicText: {fileID: 3631095070355215190}
   acceptingWords: {fileID: 11400000, guid: dced841c7c18b9448bceb2e6a8df2cf1, type: 2}
   refusingWords: {fileID: 11400000, guid: d61daec4589fd1d40a6dad1f62615206, type: 2}
-  locked: 0
+  detectionZone: {fileID: 6915235173534773481}
+  moveSpeed: 5
+  word: 
+  actualChar: 0
+  isLocked: 0
   isFrontLine: 0
   state: 0
+--- !u!61 &8586112813545807639
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974765871148064318}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0075380504, y: 0.19598916}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.334163, y: 0.40954345}
+  m_EdgeRadius: 0
 --- !u!1 &5089611760614619411
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +658,7 @@ RectTransform:
   m_Children:
   - {fileID: 3869729676682867031}
   m_Father: {fileID: 6787848081515161640}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -594,7 +683,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -668,7 +756,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 214637698273531741}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2523714654471109141
 SpriteRenderer:
