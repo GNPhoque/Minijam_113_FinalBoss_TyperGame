@@ -27,9 +27,8 @@ public class MonsterSpawner : MonoBehaviour
 
 	public void SpawnMonster()
 	{
-		List<WaitingLine> availableLines = waitingLines.Where(x => x.Count() < maxMonstersPerLine).ToList();
-		int notFullLines = availableLines.Count;
+		int notFullLines = waitingLines.Where(x => x.Count() < maxMonstersPerLine).ToList().Count;
 		if (notFullLines > 0)
-			availableLines[Random.Range(0, notFullLines)].SpawnNewMonster();
+			waitingLines[Random.Range(0, notFullLines)].SpawnNewMonster();
 	}
 }

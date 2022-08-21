@@ -3,51 +3,87 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Monster : MonoBehaviour
 {
+    [Header("TMP and Dynamic Text")]
 	[SerializeField] TextMeshProUGUI wordText;
-	[SerializeField] new Collider2D collider;
+    [SerializeField] DynamicText dynamicText;
 
-	[SerializeField] VariableWordsList acceptingWords;
+    [Header("Random words")]
+    [SerializeField] VariableWordsList acceptingWords;
 	[SerializeField] VariableWordsList refusingWords;
 
 	bool isCurrentWordRefusingWord;
-	bool canMove = true;
-	string word;
+	public string word;
+    public int actualChar;
+    public bool isLocked;
 
-	private void Start()
-	{
-		isCurrentWordRefusingWord = Random.Range(0, 2) == 0;
-		if (isCurrentWordRefusingWord)
-		{
-			word = refusingWords.PickRandomWord();
-		}
-		else word = acceptingWords.PickRandomWord();
-		wordText.text = word;
-	}
+    public bool isFrontLine;
+    public MonsterState state;
 
-	private void Update()
-	{
-		if (canMove)
-		{
-			transform.Translate(Vector3.right * Time.deltaTime);
-		}
-	}
+    private int tempChar;
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		Debug.Log("Trigger");
-		canMove = false;
-	}
+    private void Start()
+    {
+        PickRandomWord();
+    }
 
-	private void OnTriggerExit2D(Collider2D collision)
-	{
-		canMove = true;
-	}
+    private void PickRandomWord()
+    {
+        isCurrentWordRefusingWord = UnityEngine.Random.Range(0, 2) == 0;
+        if (isCurrentWordRefusingWord)
+        {
+            word = refusingWords.PickRandomWord();
+        }
+        else word = acceptingWords.PickRandomWord();
+        wordText.text = word;
+    }
 
 	public void ShowWord()
 	{
 		wordText.enabled = true;
 	}
+
+    public void ConfirmedLetter()
+    {
+        switch (state)
+        {
+            case MonsterState.IDLE:
+                dynamicText.LetterConfirmed();
+                break;
+            case MonsterState.LOCK:
+                state = MonsterState.LOCK;
+                dynamicText.ChangeColor(state);
+                dynamicText.LetterConfirmed();
+                break;
+            case MonsterState.COMBO:
+                state = MonsterState.COMBO;
+                dynamicText.ChangeColor(state);
+                dynamicText.LetterConfirmed();
+                break;
+        }
+    }
+
+    public void Finish()
+    {
+        MonsterManager.RemoveMonster(this);
+        transform.parent.GetComponent<WaitingLine>().DestroyMonster();
+    }
+
+    public void Reset()
+    {
+         state = MonsterState.IDLE;
+         isLocked = true;
+         dynamicText.Reset();
+    }
 }
+
+public enum MonsterState
+{
+    IDLE,
+    LOCK,
+    COMBO
+}
+

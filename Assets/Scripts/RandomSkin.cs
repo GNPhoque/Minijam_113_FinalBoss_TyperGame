@@ -9,6 +9,7 @@ public class RandomSkin : MonoBehaviour
     [SerializeField] private SpriteRenderer _rWeapon;
     [SerializeField] private SpriteRenderer _rBody;
     [SerializeField] private SpriteRenderer _rLeg;
+    [SerializeField] private Transform _sizeTransform;
 
     [Header("Assets")]
     [SerializeField] private List<Sprite> heads = new List<Sprite>();
@@ -28,7 +29,7 @@ public class RandomSkin : MonoBehaviour
     {
         float newSize = sizes[Random.Range(0, sizes.Count)];
 
-        transform.localScale = new Vector3 (newSize, newSize, 1);
+        _sizeTransform.localScale = new Vector3 (newSize, newSize, 1);
         _rHead.sprite = heads[Random.Range(0, heads.Count)];
         _rWeapon.sprite = weapons[Random.Range(0, weapons.Count)];
         _rBody.sprite = bodies[Random.Range(0, bodies.Count)];

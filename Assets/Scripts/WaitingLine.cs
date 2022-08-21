@@ -19,18 +19,25 @@ public class WaitingLine : MonoBehaviour
 		monsters.Add(monster);
 		if(monsters.Count == 1)
 		{
-			monsters[0].ShowWord();
+			PutInFrontLine(monster);
 		}
 	}
 
 	public void DestroyMonster()
 	{
-		Destroy(monsters[0]);
+		Destroy(monsters[0].gameObject);
 		monsters.RemoveAt(0);
 		if (monsters.Count > 0)
 		{
-			monsters[0].ShowWord();
+			PutInFrontLine(monsters[0]);
 		}
+	}
+
+	private void PutInFrontLine(Monster m)
+	{
+		m.ShowWord();
+		m.isFrontLine = true;
+		MonsterManager.AddMonster(m);
 	}
 
 	public int Count() => monsters.Count;

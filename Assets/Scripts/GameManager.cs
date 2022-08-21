@@ -11,11 +11,6 @@ public class GameManager : MonoBehaviour
 		money.OnValueChanged += Money_OnValueChanged;
 	}
 
-	private void OnDisable()
-	{
-		money.OnValueChanged -= Money_OnValueChanged;
-	}
-
 	private void Money_OnValueChanged(int value)
 	{
 		if (value <= 0)
