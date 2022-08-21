@@ -1,0 +1,62 @@
+{
+    "name": "PlayerInputs",
+    "maps": [
+        {
+            "name": "TEST",
+            "id": "bac1c8d0-813b-4fc7-9f56-35082e2af092",
+            "actions": [
+                {
+                    "name": "test",
+                    "type": "Button",
+                    "id": "3f4337ce-7be3-4349-bb6b-0fcd7cbfcd08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "664d288d-6714-47e3-8dc3-8b290b763aeb",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "typing",
+            "id": "694e0b60-b100-4a98-9e94-c9479aca982d",
+            "actions": [
+                {
+                    "name": "key",
+                    "type": "Button",
+                    "id": "14757ac2-104d-47e9-a254-35cb6b0fc0cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e60bb28a-fad3-4801-aaf5-354c7127a01c",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "key",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
