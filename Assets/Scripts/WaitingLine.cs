@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class WaitingLine : MonoBehaviour
 {
-	[SerializeField] Monster monsterPrefab;
-	[SerializeField] LayerMask monstersMask;
-
 	new Collider2D collider;
 	List<Monster> monsters;
 
@@ -17,10 +14,9 @@ public class WaitingLine : MonoBehaviour
 		monsters = new List<Monster>();
 	}
 
-	public void SpawnNewMonster()
+	public void SpawnNewMonster(Monster prefab)
 	{
-		//Monster monster = Instantiate(monsterPrefab, transform.position + Vector3.left * monsters.Count, Quaternion.identity, transform);
-		Monster monster = Instantiate(monsterPrefab, transform.position, Quaternion.identity, transform);
+		Monster monster = Instantiate(prefab, transform.position, Quaternion.identity, transform);
 		monsters.Add(monster);
 		if(monsters.Count == 1)
 		{

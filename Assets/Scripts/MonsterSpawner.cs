@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
+	[SerializeField] Monster[] monsterPrefabs;
 	[SerializeField] List<WaitingLine> waitingLines;
 	[SerializeField] float timeBetweenSpawns;
 	[SerializeField] int maxMonstersPerLine;
@@ -30,6 +31,6 @@ public class MonsterSpawner : MonoBehaviour
 		//int notFullLines = waitingLines.Where(x => x.Count() < maxMonstersPerLine).ToList().Count;
 		List<WaitingLine> notFullLines = waitingLines.Where(x => x.CanSpawnMonster()).ToList();
 		if (notFullLines.Count > 0)
-			notFullLines[Random.Range(0, notFullLines.Count)].SpawnNewMonster();
+			notFullLines[Random.Range(0, notFullLines.Count)].SpawnNewMonster(monsterPrefabs[Random.Range(0,monsterPrefabs.Length)]);
 	}
 }
