@@ -12,7 +12,7 @@ public class MonsterManager : MonoBehaviour
         {
             if (monster.state == MonsterState.LOCK)
             {
-                m.isLocked = true;
+                m.skipLetterCheck = true;
             }
         }
         firstLineMonsters.Add(m);
@@ -32,7 +32,7 @@ public class MonsterManager : MonoBehaviour
             {
                 if (monster.state != MonsterState.COMBO)
                 {
-                    monster.isLocked = false;
+                    monster.skipLetterCheck = false;
                 }
             }
         }
@@ -61,11 +61,11 @@ public class MonsterManager : MonoBehaviour
 
         foreach (Monster m in firstLineMonsters)
         {
-            if (!m.isLocked)
+            if (!m.skipLetterCheck)
             {
-                if (m.actualChar < m.word.Length)
+                if (m.currentChar < m.answer.Length)
                 {
-                    if (m.word[m.actualChar].ToString().ToUpper() == obj)
+                    if (m.answer[m.currentChar].ToString().ToUpper() == obj)
                     {
                         if (m.state != MonsterState.LOCK)
                         {
@@ -79,6 +79,11 @@ public class MonsterManager : MonoBehaviour
                     }
                     else
                     {
+                        if(m.currentChar > 0)
+						{
+                            Debug.Log($"Word reset : {m.answer}");
+                            m.ResetMonster();
+						}
                         notSelected.Add(m);
                     }
                 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WaitingLine : MonoBehaviour
 {
+	[SerializeField] Transform answerPosition;
+
 	new Collider2D collider;
 	List<Monster> monsters;
 
@@ -17,6 +19,7 @@ public class WaitingLine : MonoBehaviour
 	public void SpawnNewMonster(Monster prefab)
 	{
 		Monster monster = Instantiate(prefab, transform.position, Quaternion.identity, transform);
+		monster.SetAnswerScreenPosition(answerPosition);
 		monsters.Add(monster);
 		if(monsters.Count == 1)
 		{
@@ -36,7 +39,6 @@ public class WaitingLine : MonoBehaviour
 
 	private void PutInFrontLine(Monster m)
 	{
-		m.ShowWord();
 		m.isFrontLine = true;
 		MonsterManager.AddMonster(m);
 	}

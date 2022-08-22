@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aacad983966644e43b51a043bafe666f, type: 3}
+  m_Name: Request List
+  m_EditorClassIdentifier: 
+  requestInfos:
+  - name: Commit suicide?
+    expectsAcceptation: 1
+  - name: Kill humans?
+    expectsAcceptation: 1
+  - name: Eat brains?
+    expectsAcceptation: 1
+  - name: Set traps?
+    expectsAcceptation: 1
+  - name: Spook children?
+    expectsAcceptation: 1
+  - name: Torture coworkers?
+    expectsAcceptation: 1
+  - name: Pinch arm?
+    expectsAcceptation: 1
+  - name: Kill intruders?
+    expectsAcceptation: 1
+  - name: Shake babies?
+    expectsAcceptation: 1
+  - name: Poison water?
+    expectsAcceptation: 1
+  - name: Vacations?
+    expectsAcceptation: 0
+  - name: Day off?
+    expectsAcceptation: 0
+  - name: Rest?
+    expectsAcceptation: 0
+  - name: Get a raise?
+    expectsAcceptation: 0
+  - name: Company car?
+    expectsAcceptation: 0
+  - name: Better lunch?
+    expectsAcceptation: 0
+  - name: Pinball machine?
+    expectsAcceptation: 0
+  - name: Adopt a cat?
+    expectsAcceptation: 0
+  - name: Leave early?
+    expectsAcceptation: 0
+  - name: Windows in office?
+    expectsAcceptation: 0
+  - name: New chairs?
+    expectsAcceptation: 0
