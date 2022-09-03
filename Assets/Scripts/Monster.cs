@@ -92,12 +92,16 @@ public class Monster : MonoBehaviour
         {
             Vector3 movement = Vector3.right * Time.deltaTime * (isFrontLine ? moveSpeedFirstInLine : moveSpeed);
             transform.position += movement;
-            mustStopAnimation = true;
+			if (mustStopAnimation)
+			{
+				mustStopAnimation = false;
+                animator.speed = 1;
+            }
         }
-		else
+        else
 		{
-            mustStopAnimation = false;
-            animator.StartPlayback();
+            animator.speed = 0;
+            mustStopAnimation = true;
         }
 
 		if (patienceTimerStarted)

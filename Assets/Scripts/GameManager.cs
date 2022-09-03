@@ -47,6 +47,20 @@ public class GameManager : MonoBehaviour
 	private void OnEnable()
 	{
 		money.OnValueChanged += Money_OnValueChanged;
+		//Application.logMessageReceived += HandleLog;
+	}
+
+	private void OnDisable()
+	{
+		money.OnValueChanged -= Money_OnValueChanged;
+		//Debug.LogError("OnDisable: " + gameObject.name, gameObject);
+		//Application.logMessageReceived -= HandleLog;
+	}
+
+	void HandleLog(string logString, string stackTrace, LogType type)
+	{
+		Debug.Log(logString);
+		Debug.Log(stackTrace);
 	}
 
 	#region MONEY
