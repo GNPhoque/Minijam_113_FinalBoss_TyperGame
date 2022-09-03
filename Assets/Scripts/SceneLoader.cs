@@ -26,4 +26,10 @@ public class SceneLoader : MonoBehaviour
 		SceneManager.LoadScene(index);
 	}
 
+	public void LoadJustTypeMode()
+	{
+		StaticHelper.isJustTypeMode = true;
+		LoadNextScene();
+	}
+
 }
