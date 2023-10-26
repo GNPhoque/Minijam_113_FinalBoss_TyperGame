@@ -346,7 +346,7 @@ GameObject:
   m_IsActive: 1
 --- !u!95 &247601652
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -363,7 +363,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &247601653
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1631,7 +1632,7 @@ MonoBehaviour:
   increaseStep: 0
   acceptingWords: {fileID: 11400000, guid: dced841c7c18b9448bceb2e6a8df2cf1, type: 2}
   refusingWords: {fileID: 11400000, guid: d61daec4589fd1d40a6dad1f62615206, type: 2}
-  answerFitsRequestChance: 0.9
+  answerFitsRequestChance: 0.8
 --- !u!114 &2080181230
 MonoBehaviour:
   m_ObjectHideFlags: 0

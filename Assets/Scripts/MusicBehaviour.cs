@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MusicBehaviour : MonoBehaviour
 {
+    public static bool alreadyExists;
+
     AudioSource source;
     [SerializeField] AudioClip musicIntro;
     [SerializeField] AudioClip musicLoop;
@@ -12,6 +14,13 @@ public class MusicBehaviour : MonoBehaviour
 
 	private void Awake()
 	{
+        if (alreadyExists)
+        {
+            Destroy(this);
+            return;
+        }
+
+        alreadyExists = true;
         DontDestroyOnLoad(this);
 	}
 
